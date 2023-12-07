@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro Orientadores</title>
+
+	<h:outputStylesheet library="public" name="style.css" />
+	<h:outputStylesheet library="primefaces" name="primeicons/primeicons.css" />
+
+</h:head>
+
+<h:body>
+	
+<header>
+	APLICAÇÃO ESTÁGIO COM JSF
+</header>
+<h:form>
+	<div id="navbar">
+		<div>
+		<p:commandLink value="Aluno" action="cadastro-aluno?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar aluno" action="pesquisa-aluno?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Empresas" action="cadastro-empresa?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar empresa" action="pesquisa-empresa?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Orientador" action="cadastro-orientador?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar orientador" action="pesquisa-orientador?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Estagio" action="cadastro-estagio?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar estagio" action="pesquisa-estagio?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Avaliação da Empresa" action="cadastro-avaliacaoDaEmpresa?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar Avaliacao da Empresa" action="pesquisa-avaliacaoDaEmpresa?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Avaliação do Professor" action="cadastro-avaliacaoDoProfessor?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar Avaliacao do Professor" action="pesquisa-avaliacaoDoProfessor?faces-redirect=true"/>
+		</div>
+	</div>
+</h:form>
+	
+	<h:form id="salvar">
+	<h:messages/>
+		<div class="div-input">
+			<h:outputLabel value="Nome" />
+			<h:inputText size="60" value="#{editarOrientador.nome}" label="Nome" required="true" requiredMessage="Digite um nome"/>
+		</div>
+		<div class="div-input">
+			<h:outputLabel value="Matricula" />
+			<h:inputText size="60" value="#{editarOrientador.matricula}" label="Matrícula" required="true" requiredMessage="Digite uma matrícula"/>
+		</div>
+		<div>
+			<h:commandButton value="Salvar" action="#{orientadorBean.atualizar}" />
+			<h:inputHidden value="#{editarOrientador.id}"/>
+		</div>
+	</h:form>
+	
+	<h1>Orientadores Cadastrados</h1>
+		<h:form>
+		<p:dataTable value="#{orientadorBean.orientadores}"
+			var="orientador" border="1" cellspacing="0" cellpadding="2">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+				</f:facet>
+				<h:outputText value="#{orientador.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Matrícula" />
+				</f:facet>
+				<h:outputText value="#{orientador.matricula}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Número de orientandos" />
+				</f:facet>
+				<h:outputText value="#{orientador.qtdAlunos}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Editar" />
+				</f:facet>
+				<p:commandButton action="#{orientadorBean.editar}" icon="pi pi-pencil">
+					<f:param name="id" value="#{orientador.id}"/>
+				</p:commandButton>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Deletar" />
+				</f:facet>
+				<div title="#{(orientador.qtdAlunos > 0 || orientador.qtdAvaliacoes > 0) ? 'Não é possível deletar orientadores com alunos ou avaliação' : ''}">					
+					<p:commandButton 
+						disabled="#{(orientador.qtdAlunos != 0 || orientador.qtdAvaliacoes != 0 ) ? true : false}" 
+						action="#{orientadorBean.deletar}" icon="pi pi-trash">
+						<f:param name="id" value="#{orientador.id}"/>
+					</p:commandButton>
+				</div>
+			</p:column>
+		</p:dataTable>
+		</h:form>
+</h:body>
+</html>

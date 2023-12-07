@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro Aluno</title>
+
+	<h:outputStylesheet library="public" name="style.css" />
+	<h:outputStylesheet library="primefaces" name="primeicons/primeicons.css" />
+
+</h:head>
+
+<h:body>
+<header>
+	APLICAÇÃO ESTÁGIO COM JSF
+</header>
+<h:form>
+	<div id="navbar">
+		<div>
+		<p:commandLink value="Aluno" action="cadastro-aluno?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar aluno" action="pesquisa-aluno?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Empresas" action="cadastro-empresa?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar empresa" action="pesquisa-empresa?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Orientador" action="cadastro-orientador?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar orientador" action="pesquisa-orientador?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Estagio" action="cadastro-estagio?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar estagio" action="pesquisa-estagio?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Avaliação da Empresa" action="cadastro-avaliacaoDaEmpresa?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar Avaliacao da Empresa" action="pesquisa-avaliacaoDaEmpresa?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Avaliação do Professor" action="cadastro-avaliacaoDoProfessor?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar Avaliacao do Professor" action="pesquisa-avaliacaoDoProfessor?faces-redirect=true"/>
+		</div>
+	</div>
+</h:form>
+
+	<h:form id="salvar">
+	<h:messages/>
+		<div class="select-menu">
+			<p:selectOneMenu size="60" id="empresa" value="#{editarAvaliacaoDaEmpresa.empresa}" disabled="true" required="true" requiredMessage="Escolha uma empresa">
+				<f:selectItems value="#{empresaBean.empresas}" var="empresa"
+				itemLabel="#{empresa.nome}" itemValue="#{empresa}"/>
+				
+			</p:selectOneMenu>
+		
+			<p:selectOneMenu size="60" id="aluno" value="#{editarAvaliacaoDaEmpresa.aluno}" disabled="true" required="true" requiredMessage="Escolha um aluno">
+				<f:selectItems value="#{alunoBean.alunos}" var="aluno"
+				itemLabel="#{aluno.nome}" itemValue="#{aluno}"/>
+				
+			</p:selectOneMenu>
+		</div>	
+		<div class="select-menu">
+			<h:outputLabel value="Assiduidade" />
+			<p:selectOneMenu size="60" id="assiduidade" value="#{editarAvaliacaoDaEmpresa.rendimentoDeTrabalho}">
+				<f:selectItem itemValue="Muito Bom" itemLabel="Muito Bom"/>
+				<f:selectItem itemValue="Bom" itemLabel="Bom"/>
+				<f:selectItem itemValue="Regular" itemLabel="Regular"/>
+				<f:selectItem itemValue="Insuficiente" itemLabel="Insuficiente"/>
+			</p:selectOneMenu>
+		</div>
+		<div class="select-menu">
+			<h:outputLabel value="Disciplina" />
+			<p:selectOneMenu size="60" id="disciplina" value="#{editarAvaliacaoDaEmpresa.conhecimentos}">
+				<f:selectItem itemValue="Muito Bom" itemLabel="Muito Bom"/>
+				<f:selectItem itemValue="Bom" itemLabel="Bom"/>
+				<f:selectItem itemValue="Regular" itemLabel="Regular"/>
+				<f:selectItem itemValue="Insuficiente" itemLabel="Insuficiente"/>
+			</p:selectOneMenu>
+		</div>	
+		<div class="select-menu">
+			<h:outputLabel value="Sociabilidade" />
+			<p:selectOneMenu size="60" id="sociabilidade" value="#{editarAvaliacaoDaEmpresa.cumprimentoDasTarefas}">
+				<f:selectItem itemValue="Muito Bom" itemLabel="Muito Bom"/>
+				<f:selectItem itemValue="Bom" itemLabel="Bom"/>
+				<f:selectItem itemValue="Regular" itemLabel="Regular"/>
+				<f:selectItem itemValue="Insuficiente" itemLabel="Insuficiente"/>
+			</p:selectOneMenu>
+		</div>
+		<div class="select-menu">
+			<h:outputLabel value="Responsabilidade" />
+			<p:selectOneMenu size="60" id="responsabilidade" value="#{editarAvaliacaoDaEmpresa.aprendizagem}">
+				<f:selectItem itemValue="Muito Bom" itemLabel="Muito Bom"/>
+				<f:selectItem itemValue="Bom" itemLabel="Bom"/>
+				<f:selectItem itemValue="Regular" itemLabel="Regular"/>
+				<f:selectItem itemValue="Insuficiente" itemLabel="Insuficiente"/>
+			</p:selectOneMenu>
+		</div>	
+		<div class="select-menu">
+			<h:outputLabel value="Iniciativa" />
+			<p:selectOneMenu size="60" id="iniciativa" value="#{editarAvaliacaoDaEmpresa.desempenho}">
+				<f:selectItem itemValue="Muito Bom" itemLabel="Muito Bom"/>
+				<f:selectItem itemValue="Bom" itemLabel="Bom"/>
+				<f:selectItem itemValue="Regular" itemLabel="Regular"/>
+				<f:selectItem itemValue="Insuficiente" itemLabel="Insuficiente"/>
+			</p:selectOneMenu>
+		</div>
+		<div>
+			<h:commandButton value="Salvar" action="#{avaliacaoDaEmpresaBean.atualizar}" />
+		</div>
+	</h:form>
+	
+	<h1>Avaliações dos Professores Cadastradas</h1>
+		<h:form>
+		<p:dataTable value="#{avaliacaoDaEmpresaBean.avaliacoesDasEmpresas}"
+			var="avaliacaoDaEmpresa" border="1" cellspacing="0" cellpadding="2">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Aluno" />
+				</f:facet>
+				<h:outputText value="#{avaliacaoDaEmpresa.aluno.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Empresa" />
+				</f:facet>
+				<h:outputText value="#{avaliacaoDaEmpresa.empresa.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Rendimento de Trabalho" />
+				</f:facet>
+				<h:outputText value="#{avaliacaoDaEmpresa.rendimentoDeTrabalho}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Conhecimentos" />
+				</f:facet>
+				<h:outputText value="#{avaliacaoDaEmpresa.conhecimentos}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Cumprimento das Tarefas" />
+				</f:facet>
+				<h:outputText value="#{avaliacaoDaEmpresa.cumprimentoDasTarefas}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Aprendizagem" />
+				</f:facet>
+				<h:outputText value="#{avaliacaoDaEmpresa.aprendizagem}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Desempenho" />
+				</f:facet>
+				<h:outputText value="#{avaliacaoDaEmpresa.desempenho}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Editar" />
+				</f:facet>
+				<p:commandButton action="#{avaliacaoDaEmpresaBean.editar}" icon="pi pi-pencil">
+					<f:param name="id" value="#{avaliacaoDaEmpresa.id}"/>
+				</p:commandButton>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Deletar" />
+				</f:facet>
+				<p:commandButton 
+					action="#{avaliacaoDaEmpresaBean.deletar}" icon="pi pi-trash">
+					<f:param name="id" value="#{avaliacaoDaEmpresa.id}"/>
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		</h:form>
+</h:body>
+</html>

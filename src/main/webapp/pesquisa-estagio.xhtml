@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro Aluno</title>
+
+	<h:outputStylesheet library="public" name="style.css" />
+	<h:outputStylesheet library="primefaces" name="primeicons/primeicons.css" />
+
+</h:head>
+
+<h:body>
+<header>
+	APLICAÇÃO ESTÁGIO COM JSF
+</header>
+<h:form>
+	<div id="navbar">
+		<div>
+		<p:commandLink value="Aluno" action="cadastro-aluno?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar aluno" action="pesquisa-aluno?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Empresas" action="cadastro-empresa?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar empresa" action="pesquisa-empresa?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Orientador" action="cadastro-orientador?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar orientador" action="pesquisa-orientador?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Estagio" action="cadastro-estagio?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar estagio" action="pesquisa-estagio?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Avaliação da Empresa" action="cadastro-avaliacaoDaEmpresa?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar Avaliacao da Empresa" action="pesquisa-avaliacaoDaEmpresa?faces-redirect=true"/>
+		</div>
+		<div>
+		<p:commandLink value="Avaliação do Professor" action="cadastro-avaliacaoDoProfessor?faces-redirect=true"/>
+		<p:commandLink value="Pesquisar Avaliacao do Professor" action="pesquisa-avaliacaoDoProfessor?faces-redirect=true"/>
+		</div>
+	</div>
+</h:form>
+
+	<h:form id="salvar">
+	<h:messages/>
+		
+		<div>
+			<p:selectOneMenu size="60" id="pesquisaAtributo" value="#{estagioBean.pesquisaAtributo}">
+				<f:selectItem itemValue="dataInicio" itemLabel="Data de início"/>
+				<f:selectItem itemValue="dataFim" itemLabel="Data de fim"/>
+				<f:selectItem itemValue="cargaHoraria" itemLabel="Carga Horária"/>
+				<f:selectItem itemValue="status" itemLabel="Status"/>
+				<f:selectItem itemValue="alunoEstagio" itemLabel="Aluno do estágio"/>
+				<f:selectItem itemValue="orientadorEstagio" itemLabel="Orientador do estágio"/>
+				<f:selectItem itemValue="empresaEstagio" itemLabel="Empresa do estagio"/>
+				<f:ajax render="pesquisaAtributoEspecifico"/>
+			</p:selectOneMenu>
+			
+			<p:selectOneMenu size="60" id="pesquisaAtributoEspecifico" value="#{estagioBean.pesquisaAtributoEspecifico}"
+			 disabled="#{(estagioBean.pesquisaAtributo != 'alunoEstagio' &amp;&amp; estagioBean.pesquisaAtributo != 'orientadorEstagio' &amp;&amp; estagioBean.pesquisaAtributo != 'empresaEstagio')}">
+				<f:selectItem itemValue="nome" itemLabel="Nome"/>
+				<f:selectItem itemValue="matricula" itemLabel="Matricula" itemDisabled="#{estagioBean.pesquisaAtributo == 'empresaEstagio'}"/>
+				<f:selectItem itemValue="curso" itemLabel="Curso" itemDisabled="#{estagioBean.pesquisaAtributo != 'alunoEstagio'}"/>
+				<f:selectItem itemValue="cnpj" itemLabel="CNPJ" itemDisabled="#{estagioBean.pesquisaAtributo != 'empresaEstagio'}"/>
+			</p:selectOneMenu>
+		</div>
+		<div>
+			<h:outputLabel value="Valor" />
+			<h:inputText size="60" value="#{estagioBean.pesquisaValor}" label="Nome" required="true" requiredMessage="Digite um valor" />
+		</div>	
+		<div>
+			<h:commandButton value="Pesquisar" action="#{estagioBean.pesquisar}" />
+		</div>
+	</h:form>
+	
+	<h1>Estagios Cadastrados</h1>
+		<h:form>
+		<p:dataTable value="#{estagiosPesquisados}"
+			var="estagio" border="1" cellspacing="0" cellpadding="2">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Data Início" />
+				</f:facet>
+				<h:outputText value="#{estagio.dataInicio}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Data Fim" />
+				</f:facet>
+				<h:outputText value="#{estagio.dataFim}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Carga Horaria" />
+				</f:facet>
+				<h:outputText value="#{estagio.cargaHoraria}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Status" />
+				</f:facet>
+				<h:outputText value="#{estagio.status}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Aluno" />
+				</f:facet>
+				<h:outputText value="#{estagio.alunoEstagio.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Orientador" />
+				</f:facet>
+				<h:outputText value="#{estagio.orientadorEstagio.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Empresa" />
+				</f:facet>
+				<h:outputText value="#{estagio.empresaEstagio.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Editar" />
+				</f:facet>
+				<p:commandButton action="#{estagioBean.editar}" icon="pi pi-pencil">
+					<f:param name="id" value="#{estagio.id}"/>
+				</p:commandButton>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Deletar" />
+				</f:facet>
+				<p:commandButton action="#{estagioBean.deletar}" icon="pi pi-trash">
+					<f:param name="id" value="#{estagio.id}"/>
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		</h:form>
+</h:body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="titulo">Livros</ui:insert>
+	</title>
+	<h:outputStylesheet library="arquivos" name="styles.css" />
+</h:head>
+<h:body>
+	<header>
+		Projeto DAC
+		<div style="float: right; margin-right: 20px; margin-top: 8px">
+		#{usuarioBean.nomeUsuario} <br/>
+		#{usuarioBean.dataLogin}
+		</div>
+	</header>
+	<h:form>
+		<p:menubar style="margin-top: -20px; margin-bottom: 20px">
+			<p:submenu label="Cadastros">
+				<p:menuitem value="Livro"
+					action="/cadastro-livro-layout?faces-redirect=true" />
+				<p:menuitem value="Editora"
+					action="/cadastro-editora-layout?faces-redirect=true" />
+			</p:submenu>
+			<p:submenu label="Consultas">
+				<p:menuitem value="Livros"
+					action="/listalivros-layout?faces-redirect=true" />
+				<p:menuitem value="Editoras"
+					action="/listaeditoras-layout?faces-redirect=true" />
+			</p:submenu>
+			
+		</p:menubar>
+		
+	</h:form>
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+	<footer> Editora de Livros SA | <p:commandButton value="Sair" action="#{usuarioBean.sair}"/></footer>
+</h:body>
+</html>
